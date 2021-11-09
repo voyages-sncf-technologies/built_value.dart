@@ -189,15 +189,12 @@ abstract class SerializerSourceField
       if (classGenericParameters.contains(bareType)) {
         return 'parameter$bareType';
       }
-      return 'const FullType($bareType)';
+      return 'FullType($bareType)';
     } else {
       final parameterFullTypes = genericItems
           .map((item) => _generateFullType(item, classGenericParameters))
           .join(', ');
-      final canUseConst = parameterFullTypes.startsWith('const ');
-      final constOrNew = canUseConst ? 'const' : 'new';
-      final constOrEmpty = canUseConst ? 'const' : '';
-      return '$constOrNew FullType($bareType, $constOrEmpty [$parameterFullTypes])';
+      return 'FullType($bareType, [$parameterFullTypes])';
     }
   }
 
